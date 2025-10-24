@@ -1,8 +1,11 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-
+import { usePathname } from "next/navigation";
+import classNames from "classnames";
 const NavBar = () => {
+  const pathname = usePathname();
   const links = [
     { href: "/", label: "Dashboard" },
     { href: "/issues", label: "Issues" },
@@ -22,7 +25,10 @@ const NavBar = () => {
         {links.map((link) => (
           <li
             key={link.href}
-            className="text-zinc-600 hover:text-zinc-900 transition-colors"
+            className={classNames(" hover:text-zinc-800 transition-colors", {
+              "text-zinc-900": pathname === link.href,
+              "text-zinc-500": pathname !== link.href,
+            })}
           >
             <Link href={link.href}>{link.label}</Link>
           </li>
