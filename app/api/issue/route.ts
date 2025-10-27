@@ -4,8 +4,11 @@ import { z } from "zod";
 import { prisma } from "@/prisma/client";
 
 const createIssueSchema = z.object({
-  title: z.string().min(3).max(255),
-  description: z.string().min(3).max(255),
+  title: z.string().min(1, "Title must be at least 1 character long").max(255),
+  description: z
+    .string()
+    .min(1, "Description must be at least 1 character long")
+    .max(255),
 });
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
@@ -13,7 +16,7 @@ export const POST = async (request: NextRequest) => {
   const result = createIssueSchema.safeParse(body);
 
   if (!result.success) {
-    return NextResponse.json({ error: result.error.errors }, { status: 400 });
+    return NextResponse.json({ error: result.error.format() }, { status: 400 });
   }
 
   const newIssue = await prisma.issue.create({
