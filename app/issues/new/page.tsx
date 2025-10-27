@@ -12,7 +12,9 @@ const NewIssue = () => {
           <TextField.Input placeholder="Title" />
         </TextField.Root>
         <TextArea placeholder="Description" />
-        <Button>Submit</Button>
+        <Box>
+          <Button>Submit New Issue</Button>
+        </Box>
       </Flex>
     </Container>
   );
