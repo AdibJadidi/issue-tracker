@@ -34,19 +34,18 @@ const NewIssue = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const onFromSubmit = handleSubmit(async (data) => {
+    try {
+      setIsLoading(true);
+      await axios.post("/api/issue", data);
+      router.push("/issues");
+    } catch (error) {
+      setIsLoading(false);
+      setError("An unexpected error occurred");
+    }
+  });
   return (
-    <form
-      onSubmit={handleSubmit(async (data) => {
-        try {
-          setIsLoading(true);
-          await axios.post("/api/issue", data);
-          router.push("/issues");
-        } catch (error) {
-          setIsLoading(false);
-          setError("An unexpected error occurred");
-        }
-      })}
-    >
+    <form onSubmit={onFromSubmit}>
       <Container mx={{ initial: "5", xs: "6", sm: "7", md: "9" }}>
         {error && (
           <Callout.Root color="red" className="mb-4">
