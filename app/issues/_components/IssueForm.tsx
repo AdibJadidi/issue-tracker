@@ -37,7 +37,11 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
   const onFromSubmit = handleSubmit(async (data) => {
     try {
       setIsLoading(true);
-      await axios.post("/api/issue", data);
+      if (issue) {
+        await axios.patch(`/api/issue/${issue.id}`, data);
+      } else {
+        await axios.post("/api/issue", data);
+      }
       router.push("/issues");
     } catch (error) {
       setIsLoading(false);
