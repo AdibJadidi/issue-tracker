@@ -2,18 +2,24 @@
 import React, { useEffect, useState } from "react";
 import { Select } from "@radix-ui/themes";
 import { User } from "@prisma/client";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Skeleton from "react-loading-skeleton";
 
 const AssigneeSelect = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
+    retry: 3,
+    staleTime: 60 * 1000, //60s
+  });
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await fetch("/api/users");
-      const data = await response.json();
-      setUsers(data);
-    };
-    fetchUsers();
-  }, []);
+  if (isLoading) return <Skeleton className="h-8 w-full" />;
+  if (error) return <div>Error loading users</div>;
   return (
     <Select.Root>
       <Select.Trigger placeholder="Assignee" />
