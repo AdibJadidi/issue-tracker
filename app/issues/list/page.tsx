@@ -11,16 +11,6 @@ interface Props {
 const issues = async ({ searchParams }: Props) => {
   const statuses = Object.values(Status);
   const isStatusValid = statuses.includes(searchParams?.status as Status);
-  const issues = await prisma.issue.findMany({
-    where: {
-      status: isStatusValid ? searchParams?.status : undefined,
-    },
-    ...(searchParams.orderBy && {
-      orderBy: {
-        [searchParams.orderBy]: "asc",
-      },
-    }),
-  });
 
   const columns: { label: string; value: keyof Issue; className?: string }[] = [
     { label: "Title", value: "title", className: "" },
@@ -31,6 +21,21 @@ const issues = async ({ searchParams }: Props) => {
       className: "hidden md:table-cell",
     },
   ];
+  const isOrderByValid = columns.some(
+    (column) => column.value === searchParams.orderBy
+  );
+
+  const issues = await prisma.issue.findMany({
+    where: {
+      status: isStatusValid ? searchParams?.status : undefined,
+    },
+    ...(isOrderByValid &&
+      searchParams.orderBy && {
+        orderBy: {
+          [searchParams.orderBy]: "asc",
+        },
+      }),
+  });
 
   return (
     <Flex direction={"column"} className="space-y-2">
@@ -47,7 +52,7 @@ const issues = async ({ searchParams }: Props) => {
                 >
                   {column.label}
                 </NextLink>
-                {searchParams?.orderBy === column.value && (
+                {isOrderByValid && searchParams?.orderBy === column.value && (
                   <ArrowUpIcon className="inline" />
                 )}
               </Table.ColumnHeaderCell>
