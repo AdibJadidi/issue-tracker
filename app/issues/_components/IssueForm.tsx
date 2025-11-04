@@ -76,7 +76,17 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           />
           <ErrorMessage>{errors.description?.message}</ErrorMessage>
           <Box>
-            <Button type="submit" disabled={isLoading}>
+            <Button
+              color="blue"
+              variant="solid"
+              type="submit"
+              disabled={isLoading}
+              style={{
+                backgroundColor: "var(--accent-9)",
+                color: "white",
+                cursor: isLoading ? "not-allowed" : "pointer",
+              }}
+            >
               {issue ? "Update Issue" : "Submit New Issue"}
               {isLoading && <Spinner />}
             </Button>
