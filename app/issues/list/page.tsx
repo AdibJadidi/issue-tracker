@@ -1,12 +1,21 @@
 import { prisma } from "@/prisma/client";
 import { Flex, Table } from "@radix-ui/themes";
-import delay from "delay";
 import IssueAction from "./IssueAction";
 import { Link, IssueStatusBadge } from "@/app/components";
+import { Status } from "@prisma/client";
 
-const issues = async () => {
-  const issues = await prisma.issue.findMany();
-  await delay(2000);
+interface Props {
+  searchParams: { status?: Status };
+}
+const issues = async ({ searchParams }: Props) => {
+  const statuses = Object.values(Status);
+  const isStatusValid = statuses.includes(searchParams?.status as Status);
+  const issues = await prisma.issue.findMany({
+    where: {
+      status: isStatusValid ? searchParams?.status : undefined,
+    },
+  });
+
   return (
     <Flex direction={"column"} className="space-y-2">
       <IssueAction />
