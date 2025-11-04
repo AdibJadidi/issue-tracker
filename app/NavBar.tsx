@@ -16,12 +16,6 @@ import Skeleton from "./components/Skeleton";
 import { useSession } from "next-auth/react";
 
 const NavBar = () => {
-  const pathname = usePathname();
-  const { status, data: session } = useSession();
-  const links = [
-    { href: "/", label: "Dashboard" },
-    { href: "/issues", label: "Issues" },
-  ];
   return (
     <nav className=" border-b border-gray-200 px-4 py-3">
       <Container>
@@ -51,7 +45,7 @@ const NavLinks = () => {
   const pathname = usePathname();
   const links = [
     { href: "/", label: "Dashboard" },
-    { href: "/issues", label: "Issues" },
+    { href: "/issues/list", label: "Issues" },
   ];
   return (
     <ul className="flex space-x-6">
