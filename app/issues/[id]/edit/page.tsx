@@ -1,27 +1,28 @@
-import { prisma } from "@/prisma/client";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 import IssueFormSkeleton from "../../_components/IssueFormSkeleton";
 
-const IssueForm = dynamic(() => import("../../_components/IssueForm"), {
+const IssueForm = dynamic(() => import("@/app/issues/_components/IssueForm"), {
   ssr: false,
   loading: () => <IssueFormSkeleton />,
 });
-interface Props {
-  params: {
-    id: string;
-  };
-}
-const EditIssuePage = async ({ params }: Props) => {
-  const issue = await prisma.issue?.findUnique({
-    where: {
-      id: parseInt(params.id),
-    },
-  });
-  if (!issue) {
+
+export default async function EditIssuePage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/issue/${
+      params.id
+    }`
+  );
+
+  if (!response.ok) {
     notFound();
   }
-  return <IssueForm issue={issue} />;
-};
 
-export default EditIssuePage;
+  const issue = await response.json();
+
+  return <IssueForm issue={issue} />;
+}
