@@ -7,6 +7,7 @@ import IssueDetail from "./IssueDetail";
 import { getServerSession } from "next-auth";
 import authOptions from "@/app/auth/AuthOptions";
 import AssigneeSelect from "./AssigneeSelect";
+import { Metadata } from "next";
 interface Props {
   params: {
     id: string;
@@ -41,3 +42,18 @@ const IssueDetailPage = async ({ params }: Props) => {
 };
 
 export default IssueDetailPage;
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const issue = await prisma.issue?.findUnique({
+    where: {
+      id: parseInt(params.id),
+    },
+  });
+  if (!issue) {
+    notFound();
+  }
+  return {
+    title: issue.title,
+    description: "Detail of issue " + issue.id,
+  };
+}
