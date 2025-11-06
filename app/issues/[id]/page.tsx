@@ -7,14 +7,15 @@ import AssigneeSelect from "./AssigneeSelect";
 import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetail from "./IssueDetail";
+import { cache } from "react";
 
-const fetchIssue = (id: number) => {
+const fetchIssue = cache((id: number) => {
   return prisma.issue.findUnique({
     where: {
       id: id,
     },
   });
-};
+});
 interface Props {
   params: {
     id: string;
