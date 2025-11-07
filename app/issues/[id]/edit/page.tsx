@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 import IssueFormSkeleton from "../../_components/IssueFormSkeleton";
 
+export const revalidate = 0;
+
 function getBaseUrl() {
   return process.env.NEXT_PUBLIC_API_URL!;
 }

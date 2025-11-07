@@ -4,6 +4,8 @@ import { prisma } from "@/prisma/client";
 import Link from "next/link";
 import { IssueStatusBadge } from "./components";
 
+export const revalidate = 0;
+
 const LatestIssues = async () => {
   const issues = await prisma.issue.findMany({
     take: 5,
@@ -45,5 +47,3 @@ const LatestIssues = async () => {
 };
 
 export default LatestIssues;
-
-export const revalidate = 0;
