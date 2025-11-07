@@ -8,7 +8,7 @@
 
 ## 📝 Description
 
-[Project Name] is a full-featured, modern **Issue Tracking System** designed to help teams efficiently manage, categorize, and prioritize tasks and bugs. It provides a clean interface for creating new issues, viewing their status on a dashboard, and tracking their progress from inception to completion.
+Issue tracker is a full-featured, modern **Issue Tracking System** designed to help teams efficiently manage, categorize, and prioritize tasks and bugs. It provides a clean interface for creating new issues, viewing their status on a dashboard, and tracking their progress from inception to completion.
 
 This project was built with a focus on high performance, maintainability, and a robust user experience.
 
