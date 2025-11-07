@@ -45,3 +45,5 @@ const LatestIssues = async () => {
 };
 
 export default LatestIssues;
+
+export const revalidate = 0;
