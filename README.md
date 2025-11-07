@@ -31,7 +31,7 @@ This application is a full-stack project utilizing the following key technologie
 **Frontend & Backend:**
 * **Next.js** (App Router)
 * **React** & **TypeScript**
-* **[CSS Framework/Library]:** e.g., Tailwind CSS, Material UI, or other component library.
+* **[CSS Framework/Library]:** e.g., Tailwind CSS, Radix UI, or other component library.
 
 **Database & ORM:**
 * **Prisma:** Next-generation Node.js and TypeScript ORM for database interaction.
@@ -74,7 +74,7 @@ Follow these steps to get a local copy of the project up and running.
     DATABASE_URL="file:./dev.db" 
 
     # Example for PostgreSQL/MySQL
-    # DATABASE_URL="postgresql://user:password@localhost:5432/mydb" 
+    # DATABASE_URL="mysql://user:password@localhost:5432/mydb" 
 
     # Add other necessary variables, e.g., NextAuth secret
     NEXTAUTH_SECRET="[A long, random, and secure string]"
