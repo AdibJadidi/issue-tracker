@@ -3,13 +3,7 @@ import dynamic from "next/dynamic";
 import IssueFormSkeleton from "../../_components/IssueFormSkeleton";
 
 function getBaseUrl() {
-  // Use Vercel's own URL for production
-  if (process.env.VERCEL_URL) {
-    // VERCEL_URL does NOT include the protocol (e.g., just 'issue-tracker-six-brown.vercel.app')
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  // Fallback for local development
-  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+  return process.env.NEXT_PUBLIC_API_URL!;
 }
 const IssueForm = dynamic(() => import("@/app/issues/_components/IssueForm"), {
   ssr: false,
